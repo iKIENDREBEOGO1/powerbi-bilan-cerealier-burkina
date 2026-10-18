@@ -1,0 +1,20 @@
+model Model
+	culture: fr-FR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: fr-FR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["Année","Région","Bilan céréalier","Couverture régionale","Couverture provinciale","Dossier données"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Année
+ref table Région
+ref table 'Bilan céréalier'
+ref table 'Couverture régionale'
+ref table 'Couverture provinciale'
+ref table 'Étape du bilan'
+

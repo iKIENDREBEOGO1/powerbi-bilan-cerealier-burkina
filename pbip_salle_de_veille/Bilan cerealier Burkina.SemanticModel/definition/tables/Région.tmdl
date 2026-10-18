@@ -1,0 +1,28 @@
+/// Les 13 régions administratives utilisées par l'annuaire 2024 (découpage antérieur à la réforme de 2025).
+table Région
+	lineageTag: 312f4d8e-bc5e-4ea2-8bcb-27cb37236f03
+
+	/// Nom de la région administrative
+	column Région
+		dataType: string
+		isKey
+		lineageTag: 14ba2946-a830-4283-af7f-d4b4d293dcdf
+		summarizeBy: none
+		sourceColumn: Région
+
+	partition Région = m
+		mode: import
+		source =
+				let
+				    // Lecture du fichier de couverture régionale pour obtenir la liste des régions
+				    #"Read coverage file" = Csv.Document(File.Contents(#"Dossier données" & "couverture_regions_2015_2024.csv"), [Delimiter = ";", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted headers" = Table.PromoteHeaders(#"Read coverage file", [PromoteAllScalars = true]),
+				    // Le total national n'est pas une région
+				    #"Removed national total" = Table.SelectRows(#"Promoted headers", each [region] <> "Burkina Faso"),
+				    #"Kept region column" = Table.SelectColumns(#"Removed national total", {"region"}),
+				    #"Removed duplicate regions" = Table.Distinct(#"Kept region column"),
+				    #"Renamed region column" = Table.RenameColumns(#"Removed duplicate regions", {{"region", "Région"}}),
+				    #"Changed region type" = Table.TransformColumnTypes(#"Renamed region column", {{"Région", type text}})
+				in
+				    #"Changed region type"
+

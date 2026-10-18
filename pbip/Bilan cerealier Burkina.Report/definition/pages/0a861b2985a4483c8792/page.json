@@ -1,0 +1,165 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
+  "name": "0a861b2985a4483c8792",
+  "displayName": "Campagne",
+  "displayOption": "FitToPage",
+  "height": 1080,
+  "width": 1920,
+  "visualInteractions": [
+    {
+      "source": "d3e9202cabcd5e2be4ce",
+      "target": "0066fc0cb38497de5075",
+      "type": "NoFilter"
+    },
+    {
+      "source": "d3e9202cabcd5e2be4ce",
+      "target": "0b1524e00c6982f54c1f",
+      "type": "NoFilter"
+    },
+    {
+      "source": "d3e9202cabcd5e2be4ce",
+      "target": "380f599db277fb68c3a6",
+      "type": "NoFilter"
+    },
+    {
+      "source": "d3e9202cabcd5e2be4ce",
+      "target": "7503dbf5ccc69ea56807",
+      "type": "NoFilter"
+    },
+    {
+      "source": "d3e9202cabcd5e2be4ce",
+      "target": "079316d87ec78744e01e",
+      "type": "NoFilter"
+    },
+    {
+      "source": "d3e9202cabcd5e2be4ce",
+      "target": "c5195c6653dd44abc078",
+      "type": "NoFilter"
+    }
+  ],
+  "objects": {
+    "background": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#F6F1E7'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspace": [
+      {
+        "properties": {
+          "color": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#F6F1E7'"
+                  }
+                }
+              }
+            }
+          },
+          "transparency": {
+            "expr": {
+              "Literal": {
+                "Value": "0D"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "backgroundColor": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#FFFDF8'"
+                  }
+                }
+              }
+            }
+          },
+          "foregroundColor": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#2B2A26'"
+                  }
+                }
+              }
+            }
+          },
+          "borderColor": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#E4DCCB'"
+                  }
+                }
+              }
+            }
+          },
+          "border": {
+            "expr": {
+              "Literal": {
+                "Value": "true"
+              }
+            }
+          },
+          "checkboxAndApplyColor": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#2F6B3B'"
+                  }
+                }
+              }
+            }
+          },
+          "inputBoxColor": {
+            "solid": {
+              "color": {
+                "expr": {
+                  "Literal": {
+                    "Value": "'#FFFDF8'"
+                  }
+                }
+              }
+            }
+          },
+          "fontFamily": {
+            "expr": {
+              "Literal": {
+                "Value": "'Segoe UI'"
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

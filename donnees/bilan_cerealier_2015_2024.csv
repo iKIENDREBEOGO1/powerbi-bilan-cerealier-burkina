@@ -1,0 +1,221 @@
+﻿annee;code_poste;poste;ordre;valeur;unite
+2015;population_milliers;Population au 30/04 (milliers);1;18936;milliers
+2016;population_milliers;Population au 30/04 (milliers);1;19531;milliers
+2017;population_milliers;Population au 30/04 (milliers);1;20139;milliers
+2018;population_milliers;Population au 30/04 (milliers);1;20762;milliers
+2019;population_milliers;Population au 30/04 (milliers);1;21399;milliers
+2020;population_milliers;Population au 30/04 (milliers);1;21706;milliers
+2021;population_milliers;Population au 30/04 (milliers);1;21881;milliers
+2022;population_milliers;Population au 30/04 (milliers);1;22299;milliers
+2023;population_milliers;Population au 30/04 (milliers);1;22969;milliers
+2024;population_milliers;Population au 30/04 (milliers);1;23574;milliers
+2015;disponibilites;1. Disponibilités;2;3839;milliers de tonnes
+2016;disponibilites;1. Disponibilités;2;4135;milliers de tonnes
+2017;disponibilites;1. Disponibilités;2;3608;milliers de tonnes
+2018;disponibilites;1. Disponibilités;2;4420;milliers de tonnes
+2019;disponibilites;1. Disponibilités;2;4495;milliers de tonnes
+2020;disponibilites;1. Disponibilités;2;4586;milliers de tonnes
+2021;disponibilites;1. Disponibilités;2;3986;milliers de tonnes
+2022;disponibilites;1. Disponibilités;2;4408;milliers de tonnes
+2023;disponibilites;1. Disponibilités;2;4394;milliers de tonnes
+2024;disponibilites;1. Disponibilités;2;5231;milliers de tonnes
+2015;production_brute;Production brute;3;4190;milliers de tonnes
+2016;production_brute;Production brute;3;4567;milliers de tonnes
+2017;production_brute;Production brute;3;4063;milliers de tonnes
+2018;production_brute;Production brute;3;5181;milliers de tonnes
+2019;production_brute;Production brute;3;4940;milliers de tonnes
+2020;production_brute;Production brute;3;5179;milliers de tonnes
+2021;production_brute;Production brute;3;4661;milliers de tonnes
+2022;production_brute;Production brute;3;5179;milliers de tonnes
+2023;production_brute;Production brute;3;5148;milliers de tonnes
+2024;production_brute;Production brute;3;5961;milliers de tonnes
+2015;production_disponible;Production disponible;4;3464;milliers de tonnes
+2016;production_disponible;Production disponible;4;3766;milliers de tonnes
+2017;production_disponible;Production disponible;4;3356;milliers de tonnes
+2018;production_disponible;Production disponible;4;4298;milliers de tonnes
+2019;production_disponible;Production disponible;4;4086;milliers de tonnes
+2020;production_disponible;Production disponible;4;4289;milliers de tonnes
+2021;production_disponible;Production disponible;4;3849;milliers de tonnes
+2022;production_disponible;Production disponible;4;4292;milliers de tonnes
+2023;production_disponible;Production disponible;4;4250;milliers de tonnes
+2024;production_disponible;Production disponible;4;4914;milliers de tonnes
+2015;stocks_initiaux;Stocks initiaux au 1/11;5;375;milliers de tonnes
+2016;stocks_initiaux;Stocks initiaux au 1/11;5;369;milliers de tonnes
+2017;stocks_initiaux;Stocks initiaux au 1/11;5;252;milliers de tonnes
+2018;stocks_initiaux;Stocks initiaux au 1/11;5;121;milliers de tonnes
+2019;stocks_initiaux;Stocks initiaux au 1/11;5;409;milliers de tonnes
+2020;stocks_initiaux;Stocks initiaux au 1/11;5;296;milliers de tonnes
+2021;stocks_initiaux;Stocks initiaux au 1/11;5;137;milliers de tonnes
+2022;stocks_initiaux;Stocks initiaux au 1/11;5;116;milliers de tonnes
+2023;stocks_initiaux;Stocks initiaux au 1/11;5;144;milliers de tonnes
+2024;stocks_initiaux;Stocks initiaux au 1/11;5;317;milliers de tonnes
+2015;stocks_initiaux_paysans;dont stocks paysans;6;331;milliers de tonnes
+2016;stocks_initiaux_paysans;dont stocks paysans;6;349;milliers de tonnes
+2017;stocks_initiaux_paysans;dont stocks paysans;6;230;milliers de tonnes
+2018;stocks_initiaux_paysans;dont stocks paysans;6;99;milliers de tonnes
+2019;stocks_initiaux_paysans;dont stocks paysans;6;274;milliers de tonnes
+2020;stocks_initiaux_paysans;dont stocks paysans;6;215;milliers de tonnes
+2021;stocks_initiaux_paysans;dont stocks paysans;6;121;milliers de tonnes
+2022;stocks_initiaux_paysans;dont stocks paysans;6;85;milliers de tonnes
+2023;stocks_initiaux_paysans;dont stocks paysans;6;118;milliers de tonnes
+2024;stocks_initiaux_paysans;dont stocks paysans;6;118;milliers de tonnes
+2015;stocks_initiaux_autres;dont autres stocks;7;44;milliers de tonnes
+2016;stocks_initiaux_autres;dont autres stocks;7;20;milliers de tonnes
+2017;stocks_initiaux_autres;dont autres stocks;7;22;milliers de tonnes
+2018;stocks_initiaux_autres;dont autres stocks;7;23;milliers de tonnes
+2019;stocks_initiaux_autres;dont autres stocks;7;135;milliers de tonnes
+2020;stocks_initiaux_autres;dont autres stocks;7;81;milliers de tonnes
+2021;stocks_initiaux_autres;dont autres stocks;7;16;milliers de tonnes
+2022;stocks_initiaux_autres;dont autres stocks;7;31;milliers de tonnes
+2023;stocks_initiaux_autres;dont autres stocks;7;26;milliers de tonnes
+2024;stocks_initiaux_autres;dont autres stocks;7;199;milliers de tonnes
+2015;besoins;2. Besoins;8;3874;milliers de tonnes
+2016;besoins;2. Besoins;8;4042;milliers de tonnes
+2017;besoins;2. Besoins;8;4085;milliers de tonnes
+2018;besoins;2. Besoins;8;4227;milliers de tonnes
+2019;besoins;2. Besoins;8;4370;milliers de tonnes
+2020;besoins;2. Besoins;8;4476;milliers de tonnes
+2021;besoins;2. Besoins;8;4525;milliers de tonnes
+2022;besoins;2. Besoins;8;4481;milliers de tonnes
+2023;besoins;2. Besoins;8;4545;milliers de tonnes
+2024;besoins;2. Besoins;8;4757;milliers de tonnes
+2015;norme_kg_hbt;Norme de consommation (kg/hbt/an);9;190;kg/hbt
+2016;norme_kg_hbt;Norme de consommation (kg/hbt/an);9;190;kg/hbt
+2017;norme_kg_hbt;Norme de consommation (kg/hbt/an);9;190;kg/hbt
+2018;norme_kg_hbt;Norme de consommation (kg/hbt/an);9;190;kg/hbt
+2019;norme_kg_hbt;Norme de consommation (kg/hbt/an);9;190;kg/hbt
+2020;norme_kg_hbt;Norme de consommation (kg/hbt/an);9;190;kg/hbt
+2021;norme_kg_hbt;Norme de consommation (kg/hbt/an);9;190;kg/hbt
+2022;norme_kg_hbt;Norme de consommation (kg/hbt/an);9;190;kg/hbt
+2023;norme_kg_hbt;Norme de consommation (kg/hbt/an);9;190;kg/hbt
+2024;norme_kg_hbt;Norme de consommation (kg/hbt/an);9;190;kg/hbt
+2015;consommation_humaine;Consommation humaine;10;3598;milliers de tonnes
+2016;consommation_humaine;Consommation humaine;10;3711;milliers de tonnes
+2017;consommation_humaine;Consommation humaine;10;3826;milliers de tonnes
+2018;consommation_humaine;Consommation humaine;10;3945;milliers de tonnes
+2019;consommation_humaine;Consommation humaine;10;4066;milliers de tonnes
+2020;consommation_humaine;Consommation humaine;10;4124;milliers de tonnes
+2021;consommation_humaine;Consommation humaine;10;4157;milliers de tonnes
+2022;consommation_humaine;Consommation humaine;10;4237;milliers de tonnes
+2023;consommation_humaine;Consommation humaine;10;4364;milliers de tonnes
+2024;consommation_humaine;Consommation humaine;10;4479;milliers de tonnes
+2015;stocks_finaux;Stocks finaux au 31/10;11;276;milliers de tonnes
+2016;stocks_finaux;Stocks finaux au 31/10;11;331;milliers de tonnes
+2017;stocks_finaux;Stocks finaux au 31/10;11;259;milliers de tonnes
+2018;stocks_finaux;Stocks finaux au 31/10;11;282;milliers de tonnes
+2019;stocks_finaux;Stocks finaux au 31/10;11;304;milliers de tonnes
+2020;stocks_finaux;Stocks finaux au 31/10;11;352;milliers de tonnes
+2021;stocks_finaux;Stocks finaux au 31/10;11;368;milliers de tonnes
+2022;stocks_finaux;Stocks finaux au 31/10;11;244;milliers de tonnes
+2023;stocks_finaux;Stocks finaux au 31/10;11;181;milliers de tonnes
+2024;stocks_finaux;Stocks finaux au 31/10;11;278;milliers de tonnes
+2015;stocks_finaux_paysans;dont stocks paysans;12;269;milliers de tonnes
+2016;stocks_finaux_paysans;dont stocks paysans;12;256;milliers de tonnes
+2017;stocks_finaux_paysans;dont stocks paysans;12;258;milliers de tonnes
+2018;stocks_finaux_paysans;dont stocks paysans;12;281;milliers de tonnes
+2019;stocks_finaux_paysans;dont stocks paysans;12;259;milliers de tonnes
+2020;stocks_finaux_paysans;dont stocks paysans;12;257;milliers de tonnes
+2021;stocks_finaux_paysans;dont stocks paysans;12;233;milliers de tonnes
+2022;stocks_finaux_paysans;dont stocks paysans;12;188;milliers de tonnes
+2023;stocks_finaux_paysans;dont stocks paysans;12;159;milliers de tonnes
+2024;stocks_finaux_paysans;dont stocks paysans;12;219;milliers de tonnes
+2015;stocks_finaux_autres;dont autres stocks;13;7;milliers de tonnes
+2016;stocks_finaux_autres;dont autres stocks;13;75;milliers de tonnes
+2017;stocks_finaux_autres;dont autres stocks;13;1;milliers de tonnes
+2018;stocks_finaux_autres;dont autres stocks;13;1;milliers de tonnes
+2019;stocks_finaux_autres;dont autres stocks;13;45;milliers de tonnes
+2020;stocks_finaux_autres;dont autres stocks;13;95;milliers de tonnes
+2021;stocks_finaux_autres;dont autres stocks;13;134;milliers de tonnes
+2022;stocks_finaux_autres;dont autres stocks;13;56;milliers de tonnes
+2023;stocks_finaux_autres;dont autres stocks;13;22;milliers de tonnes
+2024;stocks_finaux_autres;dont autres stocks;13;59;milliers de tonnes
+2015;excedent_brut;3. Excédent (+) / Déficit (-) brut;14;-35;milliers de tonnes
+2016;excedent_brut;3. Excédent (+) / Déficit (-) brut;14;94;milliers de tonnes
+2017;excedent_brut;3. Excédent (+) / Déficit (-) brut;14;-477;milliers de tonnes
+2018;excedent_brut;3. Excédent (+) / Déficit (-) brut;14;193;milliers de tonnes
+2019;excedent_brut;3. Excédent (+) / Déficit (-) brut;14;125;milliers de tonnes
+2020;excedent_brut;3. Excédent (+) / Déficit (-) brut;14;109;milliers de tonnes
+2021;excedent_brut;3. Excédent (+) / Déficit (-) brut;14;-539;milliers de tonnes
+2022;excedent_brut;3. Excédent (+) / Déficit (-) brut;14;-72;milliers de tonnes
+2023;excedent_brut;3. Excédent (+) / Déficit (-) brut;14;-151;milliers de tonnes
+2024;excedent_brut;3. Excédent (+) / Déficit (-) brut;14;474;milliers de tonnes
+2015;solde_import_export;4. Solde import/export;15;542;milliers de tonnes
+2016;solde_import_export;4. Solde import/export;15;645;milliers de tonnes
+2017;solde_import_export;4. Solde import/export;15;686;milliers de tonnes
+2018;solde_import_export;4. Solde import/export;15;758;milliers de tonnes
+2019;solde_import_export;4. Solde import/export;15;684;milliers de tonnes
+2020;solde_import_export;4. Solde import/export;15;683;milliers de tonnes
+2021;solde_import_export;4. Solde import/export;15;626;milliers de tonnes
+2022;solde_import_export;4. Solde import/export;15;676;milliers de tonnes
+2023;solde_import_export;4. Solde import/export;15;705;milliers de tonnes
+2024;solde_import_export;4. Solde import/export;15;785;milliers de tonnes
+2015;importations_commerciales;Importations commerciales;16;565;milliers de tonnes
+2016;importations_commerciales;Importations commerciales;16;668;milliers de tonnes
+2017;importations_commerciales;Importations commerciales;16;725;milliers de tonnes
+2018;importations_commerciales;Importations commerciales;16;783;milliers de tonnes
+2019;importations_commerciales;Importations commerciales;16;713;milliers de tonnes
+2020;importations_commerciales;Importations commerciales;16;744;milliers de tonnes
+2021;importations_commerciales;Importations commerciales;16;692;milliers de tonnes
+2022;importations_commerciales;Importations commerciales;16;676;milliers de tonnes
+2023;importations_commerciales;Importations commerciales;16;688;milliers de tonnes
+2024;importations_commerciales;Importations commerciales;16;766;milliers de tonnes
+2015;importations_commercants;dont commerçants privés;17;553;milliers de tonnes
+2016;importations_commercants;dont commerçants privés;17;658;milliers de tonnes
+2017;importations_commercants;dont commerçants privés;17;714;milliers de tonnes
+2018;importations_commercants;dont commerçants privés;17;747;milliers de tonnes
+2019;importations_commercants;dont commerçants privés;17;699;milliers de tonnes
+2020;importations_commercants;dont commerçants privés;17;728;milliers de tonnes
+2021;importations_commercants;dont commerçants privés;17;676;milliers de tonnes
+2022;importations_commercants;dont commerçants privés;17;654;milliers de tonnes
+2023;importations_commercants;dont commerçants privés;17;671;milliers de tonnes
+2024;importations_commercants;dont commerçants privés;17;754;milliers de tonnes
+2015;importations_autres;dont autres importations;18;12;milliers de tonnes
+2016;importations_autres;dont autres importations;18;10;milliers de tonnes
+2017;importations_autres;dont autres importations;18;11;milliers de tonnes
+2018;importations_autres;dont autres importations;18;36;milliers de tonnes
+2019;importations_autres;dont autres importations;18;14;milliers de tonnes
+2020;importations_autres;dont autres importations;18;16;milliers de tonnes
+2021;importations_autres;dont autres importations;18;16;milliers de tonnes
+2022;importations_autres;dont autres importations;18;22;milliers de tonnes
+2023;importations_autres;dont autres importations;18;17;milliers de tonnes
+2024;importations_autres;dont autres importations;18;13;milliers de tonnes
+2015;aides_alimentaires;Aides alimentaires;19;0;milliers de tonnes
+2016;aides_alimentaires;Aides alimentaires;19;7;milliers de tonnes
+2017;aides_alimentaires;Aides alimentaires;19;0;milliers de tonnes
+2018;aides_alimentaires;Aides alimentaires;19;11;milliers de tonnes
+2019;aides_alimentaires;Aides alimentaires;19;1;milliers de tonnes
+2020;aides_alimentaires;Aides alimentaires;19;5;milliers de tonnes
+2021;aides_alimentaires;Aides alimentaires;19;0;milliers de tonnes
+2022;aides_alimentaires;Aides alimentaires;19;0;milliers de tonnes
+2023;aides_alimentaires;Aides alimentaires;19;17;milliers de tonnes
+2024;aides_alimentaires;Aides alimentaires;19;18;milliers de tonnes
+2015;exportations;Exportations prévues;20;24;milliers de tonnes
+2016;exportations;Exportations prévues;20;30;milliers de tonnes
+2017;exportations;Exportations prévues;20;39;milliers de tonnes
+2018;exportations;Exportations prévues;20;36;milliers de tonnes
+2019;exportations;Exportations prévues;20;30;milliers de tonnes
+2020;exportations;Exportations prévues;20;66;milliers de tonnes
+2021;exportations;Exportations prévues;20;66;milliers de tonnes
+2022;exportations;Exportations prévues;20;0;milliers de tonnes
+2023;exportations;Exportations prévues;20;0;milliers de tonnes
+2024;exportations;Exportations prévues;20;0;milliers de tonnes
+2015;excedent_net;5. Excédent (+) / Déficit (-) net;21;507;milliers de tonnes
+2016;excedent_net;5. Excédent (+) / Déficit (-) net;21;738;milliers de tonnes
+2017;excedent_net;5. Excédent (+) / Déficit (-) net;21;209;milliers de tonnes
+2018;excedent_net;5. Excédent (+) / Déficit (-) net;21;951;milliers de tonnes
+2019;excedent_net;5. Excédent (+) / Déficit (-) net;21;809;milliers de tonnes
+2020;excedent_net;5. Excédent (+) / Déficit (-) net;21;792;milliers de tonnes
+2021;excedent_net;5. Excédent (+) / Déficit (-) net;21;87;milliers de tonnes
+2022;excedent_net;5. Excédent (+) / Déficit (-) net;21;604;milliers de tonnes
+2023;excedent_net;5. Excédent (+) / Déficit (-) net;21;554;milliers de tonnes
+2024;excedent_net;5. Excédent (+) / Déficit (-) net;21;1259;milliers de tonnes
+2015;disponible_apparent_kg_hbt;6. Disponible apparent (kg/hbt);22;231;kg/hbt
+2016;disponible_apparent_kg_hbt;6. Disponible apparent (kg/hbt);22;245;kg/hbt
+2017;disponible_apparent_kg_hbt;6. Disponible apparent (kg/hbt);22;213;kg/hbt
+2018;disponible_apparent_kg_hbt;6. Disponible apparent (kg/hbt);22;249;kg/hbt
+2019;disponible_apparent_kg_hbt;6. Disponible apparent (kg/hbt);22;242;kg/hbt
+2020;disponible_apparent_kg_hbt;6. Disponible apparent (kg/hbt);22;243;kg/hbt
+2021;disponible_apparent_kg_hbt;6. Disponible apparent (kg/hbt);22;211;kg/hbt
+2022;disponible_apparent_kg_hbt;6. Disponible apparent (kg/hbt);22;228;kg/hbt
+2023;disponible_apparent_kg_hbt;6. Disponible apparent (kg/hbt);22;214;kg/hbt
+2024;disponible_apparent_kg_hbt;6. Disponible apparent (kg/hbt);22;243;kg/hbt

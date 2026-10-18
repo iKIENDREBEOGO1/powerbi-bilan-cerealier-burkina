@@ -1,0 +1,8 @@
+# Fichiers locaux de Power BI Desktop (cache des données, réglages de l'utilisateur)
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+**/.pbi/editorSettings.json
+# Divers
+__pycache__/
+node_modules/
+*.tmp

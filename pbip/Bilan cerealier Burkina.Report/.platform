@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Bilan cerealier Burkina"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a8a34fe6-0b06-400b-9dcc-2a4b187f58f8"
+  }
+}

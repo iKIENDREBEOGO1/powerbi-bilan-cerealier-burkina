@@ -1,0 +1,6 @@
+/// Dossier qui contient les CSV extraits de l'annuaire (terminé par une barre oblique inverse)
+expression 'Dossier données' = "D:\njrkl\PROJET\POWER BI\donnees\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 3d099691-6179-481c-a8c4-eebf0a1d4bca
+
+	annotation PBI_ResultType = Text
+

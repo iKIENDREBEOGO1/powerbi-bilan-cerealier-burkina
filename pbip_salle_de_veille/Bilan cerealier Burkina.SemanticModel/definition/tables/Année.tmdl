@@ -1,0 +1,24 @@
+/// Années de la campagne agricole couvertes par l'annuaire (2015 à 2024). Grain annuel : une ligne par année.
+table Année
+	lineageTag: 900b9c67-9c44-4dff-bca5-276434b37c4b
+
+	/// Année de la campagne agricole (campagne N/N+1 notée N)
+	column Année
+		dataType: int64
+		isKey
+		formatString: 0
+		lineageTag: 81ae71f6-a0da-48c8-860d-017c0ba796e0
+		summarizeBy: none
+		sourceColumn: Année
+
+	partition Année = m
+		mode: import
+		source =
+				let
+				    // Liste des années couvertes par la série de l'annuaire
+				    #"Created list of years" = {2015..2024},
+				    #"Converted list to table" = Table.FromList(#"Created list of years", Splitter.SplitByNothing(), {"Année"}),
+				    #"Changed year type" = Table.TransformColumnTypes(#"Converted list to table", {{"Année", Int64.Type}})
+				in
+				    #"Changed year type"
+

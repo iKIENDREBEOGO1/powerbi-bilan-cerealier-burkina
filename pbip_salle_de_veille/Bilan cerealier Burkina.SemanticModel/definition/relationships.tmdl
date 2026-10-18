@@ -1,0 +1,20 @@
+relationship 'Bilan céréalier vers Année'
+	fromColumn: 'Bilan céréalier'.'Code année'
+	toColumn: Année.Année
+
+relationship 'Couverture régionale vers Année'
+	fromColumn: 'Couverture régionale'.'Code année'
+	toColumn: Année.Année
+
+relationship 'Couverture régionale vers Région'
+	fromColumn: 'Couverture régionale'.'Code région'
+	toColumn: Région.Région
+
+relationship 'Couverture provinciale vers Année'
+	fromColumn: 'Couverture provinciale'.'Code année'
+	toColumn: Année.Année
+
+relationship 'Couverture provinciale vers Région'
+	fromColumn: 'Couverture provinciale'.'Code région'
+	toColumn: Région.Région
+

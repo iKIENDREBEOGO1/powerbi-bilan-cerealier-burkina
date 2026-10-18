@@ -1,0 +1,128 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/powerbi-desktop-samples/main/Report%20Theme%20JSON%20Schema/reportThemeSchema-2.153.json",
+  "name": "SaisonDesRecoltes-535b3585.json",
+  "dataColors": [
+    "#2F6B3B",
+    "#B5541B",
+    "#4A4740",
+    "#C9A66B",
+    "#7A8B6F",
+    "#A8A29E",
+    "#8E3B12",
+    "#B9D3B4"
+  ],
+  "good": "#2F6B3B",
+  "neutral": "#C9A66B",
+  "bad": "#B5541B",
+  "maximum": "#2F6B3B",
+  "center": "#EFE6D3",
+  "minimum": "#B5541B",
+  "null": "#A8A29E",
+  "foreground": "#2B2A26",
+  "foregroundNeutralSecondary": "#6F6A60",
+  "backgroundLight": "#E4DCCB",
+  "foregroundNeutralTertiary": "#6F6A60",
+  "background": "#FFFDF8",
+  "backgroundNeutral": "#EFE6D3",
+  "tableAccent": "#2F6B3B",
+  "textClasses": {
+    "callout": {
+      "fontSize": 30,
+      "fontFace": "Georgia",
+      "color": "#2B2A26"
+    },
+    "title": {
+      "fontSize": 14,
+      "fontFace": "Georgia",
+      "color": "#2B2A26"
+    },
+    "header": {
+      "fontSize": 12,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#2B2A26"
+    },
+    "label": {
+      "fontSize": 10,
+      "fontFace": "Segoe UI",
+      "color": "#2B2A26"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#FFFDF8"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "border": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#E4DCCB"
+              }
+            },
+            "radius": 6
+          }
+        ],
+        "dropShadow": [
+          {
+            "show": false
+          }
+        ],
+        "visualHeader": [
+          {
+            "show": false
+          }
+        ],
+        "padding": [
+          {
+            "top": 12,
+            "bottom": 12,
+            "left": 16,
+            "right": 16
+          }
+        ]
+      }
+    },
+    "textbox": {
+      "*": {
+        "padding": [
+          {
+            "top": 0,
+            "bottom": 0,
+            "left": 0,
+            "right": 0
+          }
+        ],
+        "background": [
+          {
+            "show": false
+          }
+        ],
+        "border": [
+          {
+            "show": false
+          }
+        ]
+      }
+    },
+    "pivotTable": {
+      "*": {
+        "columnHeaders": [
+          {
+            "autoSizeColumnWidth": true,
+            "columnAdjustment": "growToFit"
+          }
+        ]
+      }
+    }
+  }
+}

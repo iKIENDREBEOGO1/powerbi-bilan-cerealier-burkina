@@ -1,0 +1,77 @@
+/// Taux de couverture des besoins céréaliers par région et par campagne (tableau 076.3 de l'annuaire 2024, source EPA). Une ligne par région et par année.
+table 'Couverture régionale'
+	lineageTag: 1cc7fd5b-a02a-48c4-bdd5-da938f1f844e
+
+	/// Taux de couverture des besoins céréaliers de la région. Moyenne simple (non pondérée par la population) quand plusieurs régions ou années sont sélectionnées.
+	measure 'Taux de couverture régional' = AVERAGE('Couverture régionale'[Valeur taux de couverture]) / 100
+		formatString: 0%
+		lineageTag: 1f7dd04b-d866-44a6-8d6b-e755e5fd561a
+
+	/// Couleur de barre : ocre latérite sous 100 %, vert mil au-dessus
+	measure 'Couleur barre couverture régionale' = IF([Taux de couverture régional] < 1, "#B5541B", "#2F6B3B")
+		displayFolder: Mise en forme
+
+	/// Couleur de fond de la carte thermique, en 5 classes centrées sur le seuil de 100 %
+	measure 'Couleur fond couverture régionale' = ```
+			VAR _taux = [Taux de couverture régional]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        ISBLANK(_taux), "#FFFDF8",
+			        _taux < 0.5, "#8E3B12",
+			        _taux < 0.8, "#C9733F",
+			        _taux < 1, "#EBC9A6",
+			        _taux < 1.5, "#B9D3B4",
+			        "#2F6B3B"
+			    )
+			```
+		displayFolder: Mise en forme
+
+	/// Couleur du texte de la carte thermique, blanche sur les classes foncées
+	measure 'Couleur texte couverture régionale' = ```
+			VAR _taux = [Taux de couverture régional]
+			RETURN
+			    IF(NOT ISBLANK(_taux) && (_taux < 0.5 || _taux >= 1.5), "#FFFFFF", "#2B2A26")
+			```
+		displayFolder: Mise en forme
+
+	/// Nombre de régions dont le taux de couverture est inférieur à 100 % (production insuffisante pour couvrir les besoins)
+	measure 'Régions déficitaires' = COUNTROWS(FILTER(VALUES('Région'[Région]), [Taux de couverture régional] < 1))
+		formatString: 0
+		lineageTag: e5b3ebd2-4785-4343-922a-ff0615dda1bb
+
+	column 'Code région'
+		dataType: string
+		isHidden
+		lineageTag: 8a69c960-6155-4b9d-9ffd-9d298f8fb23c
+		summarizeBy: none
+		sourceColumn: region
+
+	column 'Code année'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 957a50f9-fff8-4047-aeb6-9ac437dbb68d
+		summarizeBy: none
+		sourceColumn: annee
+
+	column 'Valeur taux de couverture'
+		dataType: int64
+		isHidden
+		lineageTag: 6024736c-1594-424d-90b4-4475fd1594bd
+		summarizeBy: none
+		sourceColumn: taux_couverture_pct
+
+	partition 'Couverture régionale' = m
+		mode: import
+		source =
+				let
+				    // Lecture des taux de couverture par région extraits de l'annuaire
+				    #"Read coverage file" = Csv.Document(File.Contents(#"Dossier données" & "couverture_regions_2015_2024.csv"), [Delimiter = ";", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted headers" = Table.PromoteHeaders(#"Read coverage file", [PromoteAllScalars = true]),
+				    // Le total national est porté par la table Bilan céréalier
+				    #"Removed national total" = Table.SelectRows(#"Promoted headers", each [region] <> "Burkina Faso"),
+				    #"Changed column types" = Table.TransformColumnTypes(#"Removed national total", {{"region", type text}, {"annee", Int64.Type}, {"taux_couverture_pct", Int64.Type}})
+				in
+				    #"Changed column types"
+

@@ -1,0 +1,403 @@
+/// Bilan céréalier définitif national, une ligne par campagne (tableau 076.1 de l'annuaire 2024, source MAAH/CPSA). Quantités en milliers de tonnes.
+table 'Bilan céréalier'
+	lineageTag: 6883aab4-bb0e-478a-9073-44d8a30fc2da
+
+	/// Couleur du solde brut pour les graphiques : vert mil si excédent, ocre latérite si déficit
+	measure 'Couleur excédent' = IF([Excédent brut] < 0, "#B5541B", "#2F6B3B")
+		displayFolder: Mise en forme
+
+	/// Phrase de contexte de la carte Production : flèche et évolution sur un an
+	measure 'Contexte production' = ```
+			VAR _evolution = [Évolution de la production]
+			RETURN
+			    IF(
+			        ISBLANK([Production brute année précédente]),
+			        "Première campagne de la série",
+			        IF(_evolution >= 0, "▲ ", "▼ ") & FORMAT(_evolution, "+0.0%;-0.0%") & " sur un an"
+			    )
+			```
+		displayFolder: Mise en forme
+
+	/// Couleur de la phrase de contexte Production : vert si hausse, ocre si baisse
+	measure 'Couleur contexte production' = IF([Évolution de la production] < 0, "#B5541B", "#2F6B3B")
+		displayFolder: Mise en forme
+
+	/// Phrase de contexte de la carte Couverture : écart en points avec la campagne précédente
+	measure 'Contexte couverture' = ```
+			VAR _ecart = [Taux de couverture] - [Taux de couverture année précédente]
+			RETURN
+			    IF(
+			        ISBLANK([Taux de couverture année précédente]),
+			        IF([Taux de couverture] >= 1, "Au-dessus du seuil de 100 %", "Sous le seuil de 100 %"),
+			        IF(_ecart >= 0, "▲ ", "▼ ") & FORMAT(_ecart * 100, "+0;-0") & " points sur un an"
+			    )
+			```
+		displayFolder: Mise en forme
+
+	/// Couleur de la phrase de contexte Couverture : vert au-dessus de 100 %, ocre en dessous
+	measure 'Couleur contexte couverture' = IF([Taux de couverture] < 1, "#B5541B", "#2F6B3B")
+		displayFolder: Mise en forme
+
+	/// Phrase de contexte de la carte Excédent : situation de la campagne
+	measure 'Contexte excédent' = IF([Excédent brut] < 0, "▼ Campagne déficitaire", "▲ Campagne excédentaire")
+		displayFolder: Mise en forme
+
+	/// Phrase de contexte de la carte Importations : écart en points avec la campagne précédente (une baisse est favorable)
+	measure 'Contexte importations' = ```
+			VAR _ecart = [Part des importations] - [Part des importations année précédente]
+			RETURN
+			    IF(
+			        ISBLANK([Part des importations année précédente]),
+			        FORMAT([Importations et aides], "#,##0") & " kt importés ou reçus en aide",
+			        IF(_ecart > 0, "▲ ", "▼ ") & FORMAT(_ecart * 100, "+0.0;-0.0") & " point sur un an"
+			    )
+			```
+		displayFolder: Mise en forme
+
+	/// Couleur de la phrase de contexte Importations : ocre si la dépendance augmente, vert si elle baisse
+	measure 'Couleur contexte importations' = IF([Part des importations] - [Part des importations année précédente] > 0, "#B5541B", "#2F6B3B")
+		displayFolder: Mise en forme
+
+	/// Phrase de contexte de la carte Par habitant : écart à la norme de 190 kg
+	measure 'Contexte par habitant' = IF([Écart à la norme] >= 0, "▲ ", "▼ ") & FORMAT([Écart à la norme], "+#,##0;-#,##0") & " kg par rapport à la norme"
+		displayFolder: Mise en forme
+
+	/// Couleur de la phrase de contexte Par habitant : vert au-dessus de la norme, ocre en dessous
+	measure 'Couleur contexte par habitant' = IF([Écart à la norme] < 0, "#B5541B", "#2F6B3B")
+		displayFolder: Mise en forme
+
+	/// Campagne choisie dans le sélecteur d'année (la plus récente si plusieurs)
+	measure 'Année sélectionnée' = MAX('Année'[Année])
+		formatString: 0
+		displayFolder: Indicateurs
+
+	/// Titre de la page Campagne, recalculé pour l'année choisie
+	measure 'Titre page campagne' = ```
+			"En " & FORMAT([Année sélectionnée], "0") & ", la production couvre "
+			    & FORMAT([Taux de couverture] * 100, "0") & " % des besoins : campagne "
+			    & IF([Excédent brut] < 0, "déficitaire", "excédentaire")
+			```
+		displayFolder: Mise en forme
+
+	/// Taux de couverture de la campagne précédente
+	measure 'Taux de couverture année précédente' = ```
+			VAR _annee = MAX('Année'[Année])
+			RETURN
+			    CALCULATE([Taux de couverture], REMOVEFILTERS('Année'), 'Année'[Année] = _annee - 1)
+			```
+		formatString: 0%
+		displayFolder: Indicateurs
+
+	/// Part des importations de la campagne précédente
+	measure 'Part des importations année précédente' = ```
+			VAR _annee = MAX('Année'[Année])
+			RETURN
+			    CALCULATE([Part des importations], REMOVEFILTERS('Année'), 'Année'[Année] = _annee - 1)
+			```
+		formatString: 0.0%
+		displayFolder: Échanges
+
+	/// Importations commerciales plus aides alimentaires, en milliers de tonnes
+	measure 'Importations et aides' = [Importations commerciales] + [Aides alimentaires]
+		formatString: #,##0
+		displayFolder: Échanges
+
+	/// Montant signé de chaque étape du bilan pour la cascade : ressources en positif, emplois en négatif. Le total de la cascade est le solde net.
+	measure 'Montant étape du bilan' = ```
+			SWITCH(
+			    SELECTEDVALUE('Étape du bilan'[Code]),
+			    "prod", [Production disponible],
+			    "stock_i", [Stocks initiaux],
+			    "conso", -[Consommation humaine],
+			    "stock_f", -[Stocks finaux],
+			    "imp", [Importations commerciales],
+			    "aide", [Aides alimentaires],
+			    "exp", -[Exportations]
+			)
+			```
+		formatString: +#,##0;-#,##0;0
+		displayFolder: Solde
+
+	/// Production céréalière brute de la campagne, en milliers de tonnes
+	measure 'Production brute' = SUM('Bilan céréalier'[Valeur production brute])
+		formatString: #,##0
+		displayFolder: Ressources
+		lineageTag: da0637f0-d004-4815-b8fd-c8074da023f9
+
+	/// Production brute après pertes et semences, disponible pour la consommation, en milliers de tonnes
+	measure 'Production disponible' = SUM('Bilan céréalier'[Valeur production disponible])
+		formatString: #,##0
+		displayFolder: Ressources
+		lineageTag: 144d77a7-d6ea-41a5-bbb4-90d707c98e24
+
+	/// Stocks paysans et autres stocks au 1er novembre, en milliers de tonnes
+	measure 'Stocks initiaux' = SUM('Bilan céréalier'[Valeur stocks initiaux])
+		formatString: #,##0
+		displayFolder: Ressources
+		lineageTag: 3520ee33-df9d-4e51-a625-7c00f9e090df
+
+	/// Production disponible plus stocks initiaux, en milliers de tonnes
+	measure Disponibilités = SUM('Bilan céréalier'[Valeur disponibilités])
+		formatString: #,##0
+		displayFolder: Ressources
+		lineageTag: 93692421-3231-4a62-94ae-575e0d1e4641
+
+	/// Consommation humaine plus stocks finaux souhaités, en milliers de tonnes
+	measure 'Besoins céréaliers' = SUM('Bilan céréalier'[Valeur besoins])
+		formatString: #,##0
+		displayFolder: Besoins
+		lineageTag: 132851ed-6315-452e-94a9-b1e7991375ad
+
+	/// Population multipliée par la norme de consommation (190 kg par habitant et par an), en milliers de tonnes
+	measure 'Consommation humaine' = SUM('Bilan céréalier'[Valeur consommation humaine])
+		formatString: #,##0
+		displayFolder: Besoins
+		lineageTag: 6da6b795-4ddd-4bea-aa82-9257e818ed68
+
+	/// Stocks paysans et autres stocks au 31 octobre de l'année suivante, en milliers de tonnes
+	measure 'Stocks finaux' = SUM('Bilan céréalier'[Valeur stocks finaux])
+		formatString: #,##0
+		displayFolder: Besoins
+		lineageTag: a2e1b074-db3f-4302-82e4-fb72c6f82b02
+
+	/// Population au 30 avril de l'année suivante, en milliers d'habitants. Valeur de la dernière année quand plusieurs années sont sélectionnées.
+	measure Population =
+			VAR _derniereAnnee = MAX('Année'[Année])
+			RETURN
+			    CALCULATE(SUM('Bilan céréalier'[Valeur population]), 'Année'[Année] = _derniereAnnee)
+		formatString: #,##0
+		displayFolder: Besoins
+		lineageTag: 29a493a7-0859-4b7d-ae12-514c9cea5972
+
+	/// Disponibilités moins besoins, avant échanges extérieurs. Négatif = déficit. En milliers de tonnes.
+	measure 'Excédent brut' = SUM('Bilan céréalier'[Valeur excédent brut])
+		formatString: +#,##0;-#,##0;0
+		displayFolder: Solde
+		lineageTag: 0a9bdfbb-840f-458e-bc4e-2a58cf1ee15b
+
+	/// Excédent brut plus solde des échanges (importations, aides, exportations). En milliers de tonnes.
+	measure 'Excédent net' = SUM('Bilan céréalier'[Valeur excédent net])
+		formatString: +#,##0;-#,##0;0
+		displayFolder: Solde
+		lineageTag: ef3a5558-b2cb-4074-9367-2f3feaa0a71a
+
+	/// Importations commerciales de la campagne (commerçants privés et autres), en milliers de tonnes
+	measure 'Importations commerciales' = SUM('Bilan céréalier'[Valeur importations commerciales])
+		formatString: #,##0
+		displayFolder: Échanges
+		lineageTag: 328c55b8-6162-491f-a3fd-d579ad2c9338
+
+	/// Aides alimentaires en céréales reçues, en milliers de tonnes
+	measure 'Aides alimentaires' = SUM('Bilan céréalier'[Valeur aides alimentaires])
+		formatString: #,##0
+		displayFolder: Échanges
+		lineageTag: 0ba797a8-6e23-466c-8dfb-c0198a36aa37
+
+	/// Exportations prévues de céréales, en milliers de tonnes
+	measure Exportations = SUM('Bilan céréalier'[Valeur exportations])
+		formatString: #,##0
+		displayFolder: Échanges
+		lineageTag: 45561660-2ef0-43da-8860-49333dd1c4cb
+
+	/// Importations commerciales plus aides moins exportations, en milliers de tonnes
+	measure 'Solde des échanges' = SUM('Bilan céréalier'[Valeur solde import export])
+		formatString: +#,##0;-#,##0;0
+		displayFolder: Échanges
+		lineageTag: 7fd609f8-0d7f-4b35-a8bb-acc15d4b2385
+
+	/// Part des importations commerciales et des aides dans l'ensemble des ressources céréalières (disponibilités plus importations plus aides)
+	measure 'Part des importations' =
+			VAR _importations = [Importations commerciales] + [Aides alimentaires]
+			RETURN
+			    DIVIDE(_importations, [Disponibilités] + _importations)
+		formatString: 0.0%
+		displayFolder: Échanges
+		lineageTag: c54ce41d-e59d-4e02-b741-cf31543f2ade
+
+	/// Taux de couverture des besoins céréaliers publié par l'annuaire (tableau 076.3, ligne Burkina Faso). Moyenne simple si plusieurs années sont sélectionnées.
+	measure 'Taux de couverture' = AVERAGE('Bilan céréalier'[Valeur taux de couverture officiel]) / 100
+		formatString: 0%
+		displayFolder: Indicateurs
+		lineageTag: 322d2176-375c-45b6-b0b1-308fbed05382
+
+	/// Céréales disponibles par habitant selon le bilan, en kg par habitant et par an. Moyenne simple si plusieurs années sont sélectionnées.
+	measure 'Disponible par habitant' = AVERAGE('Bilan céréalier'[Valeur disponible apparent par habitant])
+		formatString: #,##0" kg"
+		displayFolder: Indicateurs
+		lineageTag: 32ab5577-8597-47ce-bf66-fcf5129c0451
+
+	/// Écart entre le disponible par habitant et la norme de consommation de 190 kg. Négatif = en dessous de la norme.
+	measure 'Écart à la norme' = [Disponible par habitant] - AVERAGE('Bilan céréalier'[Valeur norme de consommation])
+		formatString: +#,##0" kg";-#,##0" kg";0" kg"
+		displayFolder: Indicateurs
+		lineageTag: 47ade207-2375-43f7-a199-0a9acabe8dd7
+
+	/// Production brute de la campagne précédente, pour calculer l'évolution sur un an
+	measure 'Production brute année précédente' =
+			VAR _annee = MAX('Année'[Année])
+			RETURN
+			    CALCULATE([Production brute], REMOVEFILTERS('Année'), 'Année'[Année] = _annee - 1)
+		formatString: #,##0
+		displayFolder: Indicateurs
+		lineageTag: 767f3286-5809-4512-8a20-ae03cbe9d44b
+
+	/// Évolution de la production brute par rapport à la campagne précédente
+	measure 'Évolution de la production' =
+			VAR _precedente = [Production brute année précédente]
+			RETURN
+			    DIVIDE([Production brute] - _precedente, _precedente)
+		formatString: +0.0%;-0.0%;0.0%
+		displayFolder: Indicateurs
+		lineageTag: 5fc44a6c-0c4e-4d41-b618-76efb6c673ce
+
+	/// Nombre de campagnes dont l'excédent brut est négatif (déficit avant importations)
+	measure 'Campagnes en déficit' = COUNTROWS(FILTER(VALUES('Année'[Année]), [Excédent brut] < 0))
+		formatString: 0
+		displayFolder: Indicateurs
+		lineageTag: 9f8ad9e0-51c0-4b40-91bb-9314b09625ca
+
+	/// Libellé de la situation de la campagne selon l'excédent brut, pour les titres et le formatage conditionnel
+	measure 'Situation de la campagne' = IF([Excédent brut] < 0, "Déficitaire", "Excédentaire")
+		displayFolder: Indicateurs
+		lineageTag: 46b51d86-3a51-4350-9887-1ba0efc6cf80
+
+	column 'Code année'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2ac4b60c-e4b2-485a-aa5d-9370b9aa7515
+		summarizeBy: none
+		sourceColumn: annee
+
+	column 'Valeur population'
+		dataType: int64
+		isHidden
+		lineageTag: 92ee1ecb-28e4-4a62-b34e-ababd40f5ee3
+		summarizeBy: none
+		sourceColumn: population_milliers
+
+	column 'Valeur disponibilités'
+		dataType: int64
+		isHidden
+		lineageTag: e4f8ad13-5f72-44ae-bccc-271cb4ff806b
+		summarizeBy: none
+		sourceColumn: disponibilites
+
+	column 'Valeur production brute'
+		dataType: int64
+		isHidden
+		lineageTag: 54dc0fd2-2e5a-46e8-9e56-e7e19e7dcf34
+		summarizeBy: none
+		sourceColumn: production_brute
+
+	column 'Valeur production disponible'
+		dataType: int64
+		isHidden
+		lineageTag: 8d2eff2f-3dc1-4984-b64e-d9819696c4e7
+		summarizeBy: none
+		sourceColumn: production_disponible
+
+	column 'Valeur stocks initiaux'
+		dataType: int64
+		isHidden
+		lineageTag: 24ad1467-b462-42dd-999a-d6cb5b9c7e0e
+		summarizeBy: none
+		sourceColumn: stocks_initiaux
+
+	column 'Valeur besoins'
+		dataType: int64
+		isHidden
+		lineageTag: 87ea4145-da3b-4104-9794-936604eaf5e3
+		summarizeBy: none
+		sourceColumn: besoins
+
+	column 'Valeur norme de consommation'
+		dataType: int64
+		isHidden
+		lineageTag: 164b05b8-9d52-4dda-8ec5-be5792e43b3b
+		summarizeBy: none
+		sourceColumn: norme_kg_hbt
+
+	column 'Valeur consommation humaine'
+		dataType: int64
+		isHidden
+		lineageTag: bc9f53b8-0c78-4c9c-a215-f70f3c7b2e41
+		summarizeBy: none
+		sourceColumn: consommation_humaine
+
+	column 'Valeur stocks finaux'
+		dataType: int64
+		isHidden
+		lineageTag: 047e24fa-5d19-496b-b146-04bcaf95b33c
+		summarizeBy: none
+		sourceColumn: stocks_finaux
+
+	column 'Valeur excédent brut'
+		dataType: int64
+		isHidden
+		lineageTag: 627018b8-3abc-4afd-ac93-6de5fd2a580c
+		summarizeBy: none
+		sourceColumn: excedent_brut
+
+	column 'Valeur solde import export'
+		dataType: int64
+		isHidden
+		lineageTag: ef2a6d75-4486-4901-8f0a-056d0e7a9b3e
+		summarizeBy: none
+		sourceColumn: solde_import_export
+
+	column 'Valeur importations commerciales'
+		dataType: int64
+		isHidden
+		lineageTag: 2da19919-dcc6-40da-b3bc-d2cc8b55ab61
+		summarizeBy: none
+		sourceColumn: importations_commerciales
+
+	column 'Valeur aides alimentaires'
+		dataType: int64
+		isHidden
+		lineageTag: ee2d06c5-8327-4b9b-9d0b-bc914ec2499f
+		summarizeBy: none
+		sourceColumn: aides_alimentaires
+
+	column 'Valeur exportations'
+		dataType: int64
+		isHidden
+		lineageTag: d5e11dd2-0253-4e2b-9b62-49481b3ad418
+		summarizeBy: none
+		sourceColumn: exportations
+
+	column 'Valeur excédent net'
+		dataType: int64
+		isHidden
+		lineageTag: 39cc5ce4-4f56-4384-ab15-70c990e31152
+		summarizeBy: none
+		sourceColumn: excedent_net
+
+	column 'Valeur disponible apparent par habitant'
+		dataType: int64
+		isHidden
+		lineageTag: fac13411-d7b1-4428-a9ca-75f68cd43a4a
+		summarizeBy: none
+		sourceColumn: disponible_apparent_kg_hbt
+
+	column 'Valeur taux de couverture officiel'
+		dataType: int64
+		isHidden
+		lineageTag: 5bf5b6ea-811c-4a9c-8c03-f749675f58cf
+		summarizeBy: none
+		sourceColumn: taux_couverture_officiel_pct
+
+	partition 'Bilan céréalier' = m
+		mode: import
+		source =
+				let
+				    // Lecture du bilan céréalier annuel extrait de l'annuaire (une ligne par campagne)
+				    #"Read balance file" = Csv.Document(File.Contents(#"Dossier données" & "bilan_cerealier_annuel.csv"), [Delimiter = ";", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted headers" = Table.PromoteHeaders(#"Read balance file", [PromoteAllScalars = true]),
+				    #"Kept model columns" = Table.SelectColumns(#"Promoted headers", {"annee", "population_milliers", "disponibilites", "production_brute", "production_disponible", "stocks_initiaux", "besoins", "norme_kg_hbt", "consommation_humaine", "stocks_finaux", "excedent_brut", "solde_import_export", "importations_commerciales", "aides_alimentaires", "exportations", "excedent_net", "disponible_apparent_kg_hbt", "taux_couverture_officiel_pct"}),
+				    // Toutes les colonnes sont des entiers (milliers de tonnes, kg, %)
+				    #"Changed column types" = Table.TransformColumnTypes(#"Kept model columns", List.Transform(Table.ColumnNames(#"Kept model columns"), each {_, Int64.Type}))
+				in
+				    #"Changed column types"
+

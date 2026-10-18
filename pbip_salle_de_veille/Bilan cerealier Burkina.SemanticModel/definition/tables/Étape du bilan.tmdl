@@ -1,0 +1,44 @@
+/// Étapes du bilan céréalier dans l'ordre de la cascade (ressources puis emplois, puis échanges). Table utilitaire sans relation.
+table 'Étape du bilan'
+
+	/// Libellé de l'étape affiché dans la cascade
+	column Étape
+		dataType: string
+		summarizeBy: none
+		sourceColumn: Étape
+		sortByColumn: Ordre
+
+	/// Ordre d'affichage de l'étape dans la cascade
+	column Ordre
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: Ordre
+
+	/// Code technique de l'étape, lu par la mesure Montant étape du bilan
+	column Code
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: Code
+
+	partition 'Étape du bilan' = m
+		mode: import
+		source =
+				let
+				    // Liste fixe des étapes du bilan céréalier, dans l'ordre de lecture
+				    #"Created steps table" = #table(
+				        type table [Ordre = Int64.Type, Étape = text, Code = text],
+				        {
+				            {1, "Production disponible", "prod"},
+				            {2, "Stocks initiaux", "stock_i"},
+				            {3, "Consommation humaine", "conso"},
+				            {4, "Stocks finaux", "stock_f"},
+				            {5, "Importations", "imp"},
+				            {6, "Aides alimentaires", "aide"},
+				            {7, "Exportations", "exp"}
+				        }
+				    )
+				in
+				    #"Created steps table"

@@ -1,0 +1,125 @@
+/// Taux de couverture des besoins céréaliers par province et par campagne (tableau 076.3 de l'annuaire 2024, source EPA). Une ligne par province et par année.
+table 'Couverture provinciale'
+	lineageTag: bb4e6603-4cdd-4b31-a10c-d27173e9ef7a
+
+	/// Taux de couverture des besoins céréaliers de la province. Moyenne simple quand plusieurs provinces ou années sont sélectionnées.
+	measure 'Taux de couverture provincial' = AVERAGE('Couverture provinciale'[Valeur taux de couverture]) / 100
+		formatString: 0%
+		lineageTag: 58d596b9-62bf-4fa2-9126-84c05af76ea9
+
+	/// Nombre de campagnes (sur 2015-2024) où la province n'a pas couvert ses besoins céréaliers
+	measure 'Campagnes sous 100 %' = ```
+			COUNTROWS(
+			    FILTER(
+			        VALUES('Année'[Année]),
+			        VAR _taux = [Taux de couverture provincial]
+			        RETURN NOT ISBLANK(_taux) && _taux < 1
+			    )
+			) + 0
+			```
+		formatString: 0
+
+	/// Taux de couverture de la province pour la campagne 2024, quelle que soit l'année filtrée
+	measure 'Taux de couverture provincial 2024' = CALCULATE([Taux de couverture provincial], REMOVEFILTERS('Année'), 'Année'[Année] = 2024)
+		formatString: 0%
+
+	/// Profil de déficit de la province : chronique (5 campagnes ou plus sous 100 % et déficitaire en 2024), récent, sorti du déficit, couvert
+	measure 'Profil de déficit' = ```
+			VAR _n = [Campagnes sous 100 %]
+			VAR _t = [Taux de couverture provincial 2024]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        _t < 1 && _n >= 5, "Déficit chronique",
+			        _t < 1, "Déficit récent",
+			        _n >= 5, "Sorti du déficit",
+			        "Besoins couverts"
+			    )
+			```
+		displayFolder: Mise en forme
+
+	/// Couleur du profil de déficit pour le nuage de points
+	measure 'Couleur profil de déficit' = ```
+			SWITCH(
+			    [Profil de déficit],
+			    "Déficit chronique", "#8E3B12",
+			    "Déficit récent", "#E08A4F",
+			    "Sorti du déficit", "#8FA382",
+			    "#2F6B3B"
+			)
+			```
+		displayFolder: Mise en forme
+
+	/// Couleur de barre : ocre latérite sous 100 %, vert mil au-dessus
+	measure 'Couleur barre couverture provinciale' = IF([Taux de couverture provincial] < 1, "#B5541B", "#2F6B3B")
+		displayFolder: Mise en forme
+
+	/// Couleur de fond de la carte thermique, en 5 classes centrées sur le seuil de 100 %
+	measure 'Couleur fond couverture provinciale' = ```
+			VAR _taux = [Taux de couverture provincial]
+			RETURN
+			    SWITCH(
+			        TRUE(),
+			        ISBLANK(_taux), "#FFFDF8",
+			        _taux < 0.5, "#8E3B12",
+			        _taux < 0.8, "#C9733F",
+			        _taux < 1, "#EBC9A6",
+			        _taux < 1.5, "#B9D3B4",
+			        "#2F6B3B"
+			    )
+			```
+		displayFolder: Mise en forme
+
+	/// Couleur du texte de la carte thermique, blanche sur les classes foncées
+	measure 'Couleur texte couverture provinciale' = ```
+			VAR _taux = [Taux de couverture provincial]
+			RETURN
+			    IF(NOT ISBLANK(_taux) && (_taux < 0.5 || _taux >= 1.5), "#FFFFFF", "#2B2A26")
+			```
+		displayFolder: Mise en forme
+
+	/// Nombre de provinces dont le taux de couverture est inférieur à 100 %
+	measure 'Provinces déficitaires' = COUNTROWS(FILTER(VALUES('Couverture provinciale'[Province]), [Taux de couverture provincial] < 1))
+		formatString: 0
+		lineageTag: 3b2553f9-9af6-4b7b-856b-902130cd6517
+
+	/// Province (45 provinces, découpage de l'annuaire 2024)
+	column Province
+		dataType: string
+		lineageTag: 98a667a5-c80c-42e5-afb2-5540aaa23583
+		summarizeBy: none
+		sourceColumn: province
+
+	column 'Code région'
+		dataType: string
+		isHidden
+		lineageTag: 9abf1a62-dab7-4c69-a80e-b1ad326e7c51
+		summarizeBy: none
+		sourceColumn: region
+
+	column 'Code année'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 67af1fe9-e83f-4dda-b3da-d41828b8f97a
+		summarizeBy: none
+		sourceColumn: annee
+
+	column 'Valeur taux de couverture'
+		dataType: int64
+		isHidden
+		lineageTag: 90707421-fb04-4845-aaa9-71ade6caad82
+		summarizeBy: none
+		sourceColumn: taux_couverture_pct
+
+	partition 'Couverture provinciale' = m
+		mode: import
+		source =
+				let
+				    // Lecture des taux de couverture par province extraits de l'annuaire
+				    #"Read province file" = Csv.Document(File.Contents(#"Dossier données" & "couverture_provinces_2015_2024.csv"), [Delimiter = ";", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted headers" = Table.PromoteHeaders(#"Read province file", [PromoteAllScalars = true]),
+				    #"Changed column types" = Table.TransformColumnTypes(#"Promoted headers", {{"region", type text}, {"province", type text}, {"annee", Int64.Type}, {"taux_couverture_pct", Int64.Type}})
+				in
+				    #"Changed column types"
+
