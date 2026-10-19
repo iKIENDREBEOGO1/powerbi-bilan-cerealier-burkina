@@ -45,15 +45,13 @@ Le nuage de points des provinces sépare les déficits chroniques (en bas à dro
 Schéma en étoile, mode Import, données lues depuis des CSV par Power Query.
 
 ```mermaid
-erDiagram
-    Annee ||--o{ "Bilan cerealier" : "Annee"
-    Annee ||--o{ "Couverture regionale" : "Annee"
-    Annee ||--o{ "Couverture provinciale" : "Annee"
-    Region ||--o{ "Couverture regionale" : "Region"
-    Region ||--o{ "Couverture provinciale" : "Region"
-    "Etape du bilan" {
-        string Etape "table utilitaire de la cascade"
-    }
+flowchart LR
+    A[Année] --> B[Bilan céréalier]
+    A --> CR[Couverture régionale]
+    A --> CP[Couverture provinciale]
+    R[Région] --> CR
+    R --> CP
+    E[Étape du bilan<br/>table utilitaire de la cascade]
 ```
 
 | Table | Grain | Lignes |
