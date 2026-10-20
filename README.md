@@ -6,6 +6,8 @@
 > visual themes. Saved as a Power BI Project (PBIP), so the model (TMDL) and the report (PBIR) are readable
 > as plain text in this repository.
 
+**▶ [Voir le rapport interactif (Power BI, sans connexion)](https://app.powerbi.com/view?r=eyJrIjoiNjVhNzg5MTYtNmQwOS00ZGJlLWI2MDQtYjFjOTE0NmJlNGY0IiwidCI6ImQwY2Y4MzcxLTBlOTAtNGQ5MC1iZDM3LTIwODg2Yzc4NGE0NCJ9)** · *Open the live report*
+
 ![Page Campagne, thème Saison des récoltes](captures/saison-des-recoltes_1_campagne-2024.png)
 
 ## La question
